@@ -60,6 +60,13 @@ def get_nouns(text):
     doc = nlp(text)
     pos = ', '.join([token.text for token in doc if token.pos_ == 'PROPN'])
     return pos
+
+# Funcion para obtener verbos
+def get_verbs(text):
+    doc = nlp(text)
+    pos = ', '.join([token.text for token in doc if token.pos_ == 'VERB'])
+    return pos
+
 # Funcion para remover stop words y lowercase SIN LEMATIZAR
 def remove_stopwords(text):
     tokens = word_tokenize(text)
@@ -95,7 +102,7 @@ df['title_preprocessed'] = df['title_preprocessed'].apply(lower_text)
 df['persons'] = df['title'].apply(persons)
 df['organizations'] = df['title'].apply(orgs)
 df['nouns'] = df['title'].apply(get_nouns)
-
+df['verbs'] = df['title'].apply(get_verbs)
 medios = pd.read_csv('medios_pr.csv')
 
 medios['title_preprocessed'] = medios['title'].apply(preprocess)
